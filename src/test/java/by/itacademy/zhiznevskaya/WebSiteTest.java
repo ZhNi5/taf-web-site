@@ -2,10 +2,12 @@ package by.itacademy.zhiznevskaya;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.NoAlertPresentException;
 
 public class WebSiteTest {
     @Test
@@ -27,7 +29,6 @@ public class WebSiteTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://onliner.by/");
-        ;
         String enterButtonLocator = "//*[@id=\"userbar\"]/div[1]/div/div/div[1]";
         By enterButtonLBy = By.xpath(enterButtonLocator);
         WebElement enterButtonElement = driver.findElement(enterButtonLBy);
@@ -62,7 +63,7 @@ public class WebSiteTest {
         WebElement inputEmailFormLoginElement = driver.findElement(inputEmailFormLoginBy);
         inputEmailFormLoginElement.sendKeys("email@gamil.com");
 
-        //вводит пароль пользователя
+        //вводим пароль пользователя
 
         String inputEmailFormPassword = "//*[@id=\"auth-container\"]/div/div[2]/div/form/div[2]/div/div/div[1]/div/input";
         By inputEmailFormPasswordBy = By.xpath(inputEmailFormPassword);
@@ -97,5 +98,18 @@ public class WebSiteTest {
         WebElement buttonEnter = driver.findElement(By.xpath(avPage.buttonEnterLocator));
         buttonEnter.click();
 
+    }
+    @Test
+    public void testPassRw() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://pass.rw.by/ru/");
+        Thread.sleep(5000);
+
+        PassRwPage passRwPagePersonalCabinet = new PassRwPage(driver);
+        passRwPagePersonalCabinet.modelDialogCheckBoxAccept();
+        Thread.sleep(5000);
+        passRwPagePersonalCabinet.clickLinkPersonalCabinet();
+        driver.close();
     }
 }
