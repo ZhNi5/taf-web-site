@@ -19,7 +19,7 @@ public class PassRwPage {
         personalCabinetElement.click();
     }
 
-    public void modelDialogCheckBoxAccept(){
+    public void clickModelDialogCheckBoxAccept(){
         By modelDialogCheckBoxAcceptBy=By.xpath(modelDialogCheckboxTextXpath);
         WebElement modelDialogCheckBoxElement=driver.findElement(modelDialogCheckBoxAcceptBy);
         modelDialogCheckBoxElement.click();

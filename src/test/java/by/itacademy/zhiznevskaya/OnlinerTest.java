@@ -2,33 +2,24 @@ package by.itacademy.zhiznevskaya;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.NoAlertPresentException;
 
-public class WebSiteTest {
+public class OnlinerTest extends BaseTest {
+
     @Test
     public void testOnliner() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://onliner.by/");
-
         OnlinerPage onlinerPage = new OnlinerPage(driver);
         onlinerPage.clickEnterButton();
         String actual = onlinerPage.getTextEnterTitleAouthFrom();
         String expected = "Войти";
         Assertions.assertEquals(expected, actual);
-        driver.close();
     }
 
     @Test
     public void testOnlinerLogin() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://onliner.by/");
         String enterButtonLocator = "//*[@id=\"userbar\"]/div[1]/div/div/div[1]";
         By enterButtonLBy = By.xpath(enterButtonLocator);
         WebElement enterButtonElement = driver.findElement(enterButtonLBy);
@@ -48,36 +39,23 @@ public class WebSiteTest {
 
     @Test
     public void testOnlinerFakeUser() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.onliner.by/");
-        Thread.sleep(4000);
         String enterButtonLocator = "//*[@id=\"userbar\"]/div[1]/div/div/div[1]";
         By enterButtonBy = By.xpath(enterButtonLocator);
         WebElement enterButtonWebElement = driver.findElement(enterButtonBy);
         enterButtonWebElement.click();
-
-        //ввести почту в поле логин
         String inputEmailFormLogin = "//*[@id=\"auth-container\"]/div/div[2]/div/form/div[1]/div/div[2]/div/div/div/div/input";
         By inputEmailFormLoginBy = By.xpath(inputEmailFormLogin);
         WebElement inputEmailFormLoginElement = driver.findElement(inputEmailFormLoginBy);
         inputEmailFormLoginElement.sendKeys("email@gamil.com");
-
-        //вводим пароль пользователя
-
         String inputEmailFormPassword = "//*[@id=\"auth-container\"]/div/div[2]/div/form/div[2]/div/div/div[1]/div/input";
         By inputEmailFormPasswordBy = By.xpath(inputEmailFormPassword);
         WebElement inputEmailFormPasswordElement = driver.findElement(inputEmailFormPasswordBy);
         inputEmailFormPasswordElement.sendKeys("password");
-
-        //нажимаем кнпоку войти
         String buttonEnter = "//*[@id=\"auth-container\"]/div/div[2]/div/form/div[3]/button";
         By buttonEnterBy = By.xpath(buttonEnter);
         WebElement buttonEnterWebElement = driver.findElement(buttonEnterBy);
         buttonEnterWebElement.click();
         Thread.sleep(4000);
-
-        //сравниваем два сообщения,то, что приходит, и то что ожидали
         String errorMassageFakeUser = "/html/body/div[6]/div/div/div/div/div/div/div/div[2]/div/form/div[3]/div";
         By errorMassageFakeUserBy = By.xpath(errorMassageFakeUser);
         WebElement errorMassageFakeUserElement = driver.findElement(errorMassageFakeUserBy);
@@ -87,29 +65,6 @@ public class WebSiteTest {
 
     }
 
-    @Test
-    public void testAv() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.onliner.by/");
-        Thread.sleep(4000);
 
-        AvPage avPage = new AvPage();
-        WebElement buttonEnter = driver.findElement(By.xpath(avPage.buttonEnterLocator));
-        buttonEnter.click();
 
-    }
-    @Test
-    public void testPassRw() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://pass.rw.by/ru/");
-        Thread.sleep(5000);
-
-        PassRwPage passRwPagePersonalCabinet = new PassRwPage(driver);
-        passRwPagePersonalCabinet.modelDialogCheckBoxAccept();
-        Thread.sleep(5000);
-        passRwPagePersonalCabinet.clickLinkPersonalCabinet();
-        driver.close();
-    }
 }
